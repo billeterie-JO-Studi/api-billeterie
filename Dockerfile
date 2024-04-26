@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY . . 
 
-RUN npm install --production 
+RUN npm install --production --ignore-scripts
 
 # change default user
 RUN adduser -D studi
