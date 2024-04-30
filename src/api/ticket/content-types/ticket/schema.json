@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tickets",
+  "info": {
+    "singularName": "ticket",
+    "pluralName": "tickets",
+    "displayName": "Ticket"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "key_qrcode": {
+      "type": "string"
+    },
+    "command": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::command.command",
+      "inversedBy": "tickets"
+    },
+    "event": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::event.event",
+      "inversedBy": "tickets"
+    },
+    "offre": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::offre.offre",
+      "inversedBy": "tickets"
+    }
+  }
+}
