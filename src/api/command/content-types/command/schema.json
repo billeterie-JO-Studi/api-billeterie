@@ -4,7 +4,8 @@
   "info": {
     "singularName": "command",
     "pluralName": "commands",
-    "displayName": "Command"
+    "displayName": "Command",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -20,7 +21,7 @@
     "total_price": {
       "type": "decimal"
     },
-    "used_id": {
+    "user": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
