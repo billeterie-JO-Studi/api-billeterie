@@ -1,0 +1,5 @@
+/**
+ * studi service
+ */
+
+export default () => ({});
