@@ -20,6 +20,7 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "5.3.4",
+    "stripe": "^15.5.0",
     "styled-components": "5.3.3"
   },
   "author": {
@@ -29,7 +30,6 @@
     "uuid": "eeb9bab4-8a30-4613-9dc4-650bcb0a09a6"
   },
   "engines": {
-    "node": ">=18.0.0 <=20.x.x",
     "npm": ">=6.0.0"
   },
   "license": "MIT",
