@@ -4,18 +4,20 @@
   "info": {
     "singularName": "checkout",
     "pluralName": "checkouts",
-    "displayName": "checkout"
+    "displayName": "checkout",
+    "description": ""
   },
   "options": {
-    "draftAndPublish": true,
-    "comment": ""
+    "draftAndPublish": true
   },
   "attributes": {
     "quantity": {
-      "type": "integer"
+      "type": "integer",
+      "required": true
     },
     "offre": {
-      "type": "integer"
+      "type": "integer",
+      "required": true
     }
   }
 }
