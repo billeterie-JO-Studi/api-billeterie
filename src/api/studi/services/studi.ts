@@ -1,5 +1,0 @@
-/**
- * studi service
- */
-
-export default () => ({});
