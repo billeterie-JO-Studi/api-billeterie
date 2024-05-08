@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "checkouts",
+  "info": {
+    "singularName": "checkout",
+    "pluralName": "checkouts",
+    "displayName": "checkout"
+  },
+  "options": {
+    "draftAndPublish": true,
+    "comment": ""
+  },
+  "attributes": {
+    "quantity": {
+      "type": "integer"
+    },
+    "offre": {
+      "type": "integer"
+    }
+  }
+}
