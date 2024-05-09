@@ -41,7 +41,7 @@ export default {
             product_data: {
               name: entityOffre.name,
             },
-            unit_amount: entityOffre.price,
+            unit_amount: entityOffre.price * 100,
           },
           quantity: item.quantity,
         };
