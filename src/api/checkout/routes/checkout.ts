@@ -12,5 +12,17 @@ export default {
         auth: false,
       },
     },
+    {
+      method: "POST", 
+      path: "/webhook", 
+      handler: "checkout.webhook", 
+      config: {
+        policies: [],
+        middlewares: [], 
+        auth: false
+      }
+
+    }
+
   ],
 };

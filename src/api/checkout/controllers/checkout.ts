@@ -8,6 +8,7 @@ import Joi from "joi";
 
 const YOUR_DOMAIN = process.env.URL_FRONT;
 const TOKEN_STRIPE = process.env.TOKEN_STRIPE;
+const endpointSecret = process.env.ENDPOINT_SECRET_STRIPE;
 
 const stripe = new Stripe(TOKEN_STRIPE);
 
@@ -35,11 +36,14 @@ export default {
           "api::offre.offre",
           item.offre
         );
-        const lineItemStrip = {
+        const lineItemStrip: Stripe.Checkout.SessionCreateParams.LineItem = {
           price_data: {
             currency: "EUR",
             product_data: {
               name: entityOffre.name,
+              metadata: {
+                idOfffre: entityOffre.id
+              },
             },
             unit_amount: entityOffre.price * 100,
           },
@@ -73,4 +77,49 @@ export default {
       ctx.response.body = err;
     }
   },
+  webhook: async (ctx: any, next: Next) => {
+    // webhook de paiement 
+    console.log("appel du webhook"); 
+
+    const payload = ctx.request.rowBody
+    console.log(payload); 
+
+    // récupération du header Stripe Signature 
+    const sig = ctx.request.header['stripe-signature'];
+    console.log(sig); 
+
+
+    let event: Stripe.Event;
+
+    try {
+      // construction de l'event Strip 
+      console.log("avant constructEvent"); 
+      event = stripe.webhooks.constructEvent(payload, sig, endpointSecret);
+      console.log("Après constructEvent"); // ne s'affichera pas. 
+    }
+    catch (err) {
+      ctx.response.status = 400;
+      console.log(err); 
+      console.log(err.message);
+      ctx.response.body = { error: `Webhook Error: ${err.message}` };
+      return; // retourne pour éviter de lancer next
+    }
+
+    // Handle the event 
+    switch(event.type) {
+      case 'payment_intent.succeeded': 
+        const paymentIntent = event.data.object; 
+        console.log('PaymentIntent was succcesful!'); 
+        console.log(paymentIntent); 
+        break; 
+      default: 
+        console.log(`Unhandled event type ${event.type}`); 
+    }
+
+    console.log(event.type);
+    ctx.response.body = "OK";
+
+
+    next();
+  }
 };
