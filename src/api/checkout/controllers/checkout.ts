@@ -5,6 +5,7 @@
 import { Context, Next } from "koa";
 import Stripe from "stripe";
 import Joi from "joi";
+import unparsed from "koa-body/unparsed.js";
 
 const YOUR_DOMAIN = process.env.URL_FRONT;
 const TOKEN_STRIPE = process.env.TOKEN_STRIPE;
@@ -41,13 +42,12 @@ export default {
             currency: "EUR",
             product_data: {
               name: entityOffre.name,
-              metadata: {
-                idOfffre: entityOffre.id
-              },
+
             },
             unit_amount: entityOffre.price * 100,
           },
           quantity: item.quantity,
+
         };
 
         return lineItemStrip;
@@ -62,6 +62,10 @@ export default {
         mode: "payment",
         success_url: `${YOUR_DOMAIN}?success=true`,
         cancel_url: `${YOUR_DOMAIN}?canceled=true`,
+        metadata: {
+          user: JSON.stringify(ctx.state.user),
+          dataListItem: JSON.stringify(ctx.request.body)
+        }
       });
 
       console.log(session.url);
@@ -77,49 +81,61 @@ export default {
       ctx.response.body = err;
     }
   },
-  webhook: async (ctx: any, next: Next) => {
-    // webhook de paiement 
-    console.log("appel du webhook"); 
+  webhook: async (
+    ctx: Context & { request: { body: any } },
+    next: Next
+  ) => {
+    // webhook de paiement
+    console.log("appel du webhook");
 
-    const payload = ctx.request.rowBody
-    console.log(payload); 
 
-    // récupération du header Stripe Signature 
-    const sig = ctx.request.header['stripe-signature'];
-    console.log(sig); 
+    // récupération du header Stripe Signature
+    const sig = ctx.request.header["stripe-signature"];
+
+    const payload = ctx.request.body[unparsed];
 
 
     let event: Stripe.Event;
 
     try {
-      // construction de l'event Strip 
-      console.log("avant constructEvent"); 
+      // construction de l'event Strip
       event = stripe.webhooks.constructEvent(payload, sig, endpointSecret);
-      console.log("Après constructEvent"); // ne s'affichera pas. 
-    }
-    catch (err) {
+    } catch (err) {
       ctx.response.status = 400;
-      console.log(err); 
+      console.log(err);
       console.log(err.message);
       ctx.response.body = { error: `Webhook Error: ${err.message}` };
       return; // retourne pour éviter de lancer next
     }
 
-    // Handle the event 
-    switch(event.type) {
-      case 'payment_intent.succeeded': 
-        const paymentIntent = event.data.object; 
-        console.log('PaymentIntent was succcesful!'); 
-        console.log(paymentIntent); 
-        break; 
-      default: 
-        console.log(`Unhandled event type ${event.type}`); 
+    // Handle the event
+    if (event.type === 'checkout.session.completed') {
+
+      const paymentIntent = event.data.object;
+
+      const sessionWithLineItems = await stripe.checkout.sessions.retrieve(
+        event.data.object.id,
+        {
+          expand: ['line_items'],
+        }
+      )
+      const line_items = sessionWithLineItems.line_items;
+
+      console.log(line_items);
+      console.log('PaymentIntent was succcesful!');
+      console.log(paymentIntent);
+
+    } else {
+      console.log(`Unhandled event type ${event.type}`);
+
     }
+
+
+    // strapi.service('api::command.command').generateCommand();
 
     console.log(event.type);
     ctx.response.body = "OK";
 
-
-    next();
-  }
+    await next();
+  },
 };

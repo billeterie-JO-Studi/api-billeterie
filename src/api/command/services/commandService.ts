@@ -1,0 +1,5 @@
+/**
+ * commandService service
+ */
+
+export default () => ({});
