@@ -835,7 +835,7 @@ export interface ApiCommandCommand extends Schema.CollectionType {
     description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     reference: Attribute.String;
@@ -853,7 +853,6 @@ export interface ApiCommandCommand extends Schema.CollectionType {
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::command.command',
       'oneToOne',
@@ -875,9 +874,10 @@ export interface ApiEventEvent extends Schema.CollectionType {
     singularName: 'event';
     pluralName: 'events';
     displayName: 'Event';
+    description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     name: Attribute.String;
@@ -893,7 +893,6 @@ export interface ApiEventEvent extends Schema.CollectionType {
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::event.event',
       'oneToOne',
@@ -915,9 +914,10 @@ export interface ApiOffreOffre extends Schema.CollectionType {
     singularName: 'offre';
     pluralName: 'offres';
     displayName: 'Offre';
+    description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     name: Attribute.String;
@@ -931,7 +931,6 @@ export interface ApiOffreOffre extends Schema.CollectionType {
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::offre.offre',
       'oneToOne',
@@ -953,9 +952,10 @@ export interface ApiTicketTicket extends Schema.CollectionType {
     singularName: 'ticket';
     pluralName: 'tickets';
     displayName: 'Ticket';
+    description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     key_qrcode: Attribute.String;
@@ -976,7 +976,6 @@ export interface ApiTicketTicket extends Schema.CollectionType {
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::ticket.ticket',
       'oneToOne',
