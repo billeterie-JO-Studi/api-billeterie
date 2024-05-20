@@ -9,7 +9,6 @@ export default {
       config: {
         policies: [],
         middlewares: [],
-        auth: false,
       },
     },
     {

@@ -41,8 +41,7 @@ export default factories.createCoreService('api::command.command', ({ strapi }) 
         user: userId,
         date_purchasse: new Date(), 
         tickets: newTickets, 
-        state: "published", 
-        status: "toto"
+
         
       },
     })

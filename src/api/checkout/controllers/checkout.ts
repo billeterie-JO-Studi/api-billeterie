@@ -63,8 +63,8 @@ export default {
         success_url: `${YOUR_DOMAIN}?success=true`,
         cancel_url: `${YOUR_DOMAIN}?canceled=true`,
         metadata: {
-          user: JSON.stringify(ctx.state.user),
-          dataListItem: JSON.stringify(ctx.request.body)
+          dataListItem: JSON.stringify(ctx.request.body), 
+          user: ctx.state.user.id 
         }
       });
 
