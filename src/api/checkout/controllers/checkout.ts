@@ -31,6 +31,8 @@ export default {
     try {
       // vérification des data
       Joi.assert(ctx.request.body, schema, "format Invalide");
+      console.log(ctx.state.user)
+      console.log(ctx.state.user.id); 
 
       let promiseResult = ctx.request.body.map(async (item) => {
         const entityOffre = await strapi.entityService.findOne(
@@ -124,6 +126,10 @@ export default {
       console.log(line_items);
       console.log('PaymentIntent was succcesful!');
       console.log(paymentIntent);
+      let detailCommand = JSON.parse(paymentIntent.metadata.dataListItem); 
+      let userId = paymentIntent.metadata.user; 
+      let totalPrice = paymentIntent.amount_total / 100; 
+      strapi.service('api::command.command').generateCommand(userId, totalPrice, detailCommand);
 
     } else {
       console.log(`Unhandled event type ${event.type}`);
@@ -131,7 +137,6 @@ export default {
     }
 
 
-    // strapi.service('api::command.command').generateCommand();
 
     console.log(event.type);
     ctx.response.body = "OK";
