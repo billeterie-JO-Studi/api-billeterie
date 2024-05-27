@@ -1,4 +1,9 @@
-Dockerfile
-.*
-node_modules
-sonar-project.properties
+sonar-project.properties.tmp/
+.tmp/
+.cache/
+.git/
+build/
+node_modules/
+.env
+data/
+backup/
