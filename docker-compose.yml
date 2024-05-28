@@ -21,6 +21,8 @@ services:
       - ./src:/opt/app/src
       - ./package.json:/opt/package.json
       - ./package-lock.json:/opt/package-lock.json
+      TOKEN_STRIPE: ${TOKEN_STRIPE}
+      ENDPOINT_SECRET_STRIPE: ${ENDPOINT_SECRET_STRIPE}
 
       - ./.env:/opt/app/.env
       - ./public/uploads:/opt/app/public/uploads
