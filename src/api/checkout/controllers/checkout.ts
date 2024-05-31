@@ -62,8 +62,8 @@ export default {
       const session = await stripe.checkout.sessions.create({
         line_items: resultListItemStripe,
         mode: "payment",
-        success_url: `${YOUR_DOMAIN}?success=true`,
-        cancel_url: `${YOUR_DOMAIN}?canceled=true`,
+        success_url: `${YOUR_DOMAIN}/paiement-sucess`,
+        cancel_url: `${YOUR_DOMAIN}/market`,
         metadata: {
           dataListItem: JSON.stringify(ctx.request.body), 
           user: ctx.state.user.id 
