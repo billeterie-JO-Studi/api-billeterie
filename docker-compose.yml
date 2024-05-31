@@ -2,7 +2,9 @@ version: '3'
 services:
   studi-api:
     container_name: studi-api
-    build: .
+    build: 
+      context: .
+      dockerfile: Dockerfile.prod
     image: studi-api:latest
     restart: unless-stopped
     env_file: .env
@@ -16,16 +18,9 @@ services:
       ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       NODE_ENV: ${NODE_ENV}
-    volumes:
-      - ./config:/opt/app/config
-      - ./src:/opt/app/src
-      - ./package.json:/opt/package.json
-      - ./package-lock.json:/opt/package-lock.json
       TOKEN_STRIPE: ${TOKEN_STRIPE}
       ENDPOINT_SECRET_STRIPE: ${ENDPOINT_SECRET_STRIPE}
 
-      - ./.env:/opt/app/.env
-      - ./public/uploads:/opt/app/public/uploads
     ports:
       - '1337:1337'
     networks:
@@ -35,7 +30,6 @@ services:
       
   studi-apiDB:
     container_name: studi-apiDB
-    platform: linux/amd64 #for platform error on Apple M1 chips
     restart: unless-stopped
     env_file: .env
     image: mariadb:latest
