@@ -65,12 +65,6 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "commands": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::command.command",
-      "mappedBy": "user"
-    },
     "firstname": {
       "type": "string",
       "required": true

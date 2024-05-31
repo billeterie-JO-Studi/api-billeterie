@@ -21,17 +21,14 @@
     "total_price": {
       "type": "decimal"
     },
-    "user": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "commands"
-    },
     "tickets": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::ticket.ticket",
       "mappedBy": "command"
+    },
+    "user": {
+      "type": "integer"
     }
   }
 }
