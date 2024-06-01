@@ -1,3 +1,38 @@
+# API Billeterie Studi 
+
+ce projet, est une Api d'une application de billeteries ( Evaluation Studi ) 
+
+## Installation 
+
+### Méthode manuel 
+
+**Requires** : [NodeJs](https://nodejs.org/en)
+
+1. crée le fichier _.env_ en se basant sur le fichier ._env.example_
+2. changer les variable du fichier selon vos besoins
+3. lancer la commande `npm run build` pour construire le panel d'administration 
+4. lancer la commande `npm run start` pour lancer le serveur API
+
+### Méthode avec Docker 
+
+1. crée le fichier _.env_ en se basant du fichier _.env.examples_
+2. changer les variables du fichiers selon vos besoins
+3. lancer le réseau docker en tapant la commande `docker-compose up -d`
+
+**remarque**: vous n'etes pas obligé de crée le _.env_
+vous pouvez passé diretement les variable avant la commande `docker-compose up -d` 
+example : `MY_ENV_VAR=value1 ANOTHER_ENV_VAR=value2 docker-compose up -d`
+
+les variables définir en précédant la commande sont prioritaire par rapport au _.env_
+
+
+
+----------------------------------------------------------------------------------------------------- 
+
+
+
+
+
 # 🚀 Getting started with Strapi
 
 Strapi comes with a full featured [Command Line Interface](https://docs.strapi.io/dev-docs/cli) (CLI) which lets you scaffold and manage your project in seconds.
